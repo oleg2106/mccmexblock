@@ -1,0 +1,8 @@
+<p>Задача mccme, замените width, height, iframe на нужные</p>
+<mccme_problem>
+    <customresponse cfn="vglcfn">
+        <width>{self.width}</width>
+	<height>{self.height}</height>
+        <iframe>{self.href}</iframe>
+    </customresponse>
+</mccme_problem>

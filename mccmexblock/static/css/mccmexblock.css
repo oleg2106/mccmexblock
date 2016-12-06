@@ -1,0 +1,9 @@
+/* CSS for MccmeXBlock */
+
+.mccmexblock_block .count {
+    font-weight: bold;
+}
+
+.mccmexblock_block p {
+    cursor: pointer;
+}

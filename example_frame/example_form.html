@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Тег FORM</title>
+  <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="jschannel.js"></script>
+  <script type="text/javascript" src="values.js"></script>
+  <script type="text/javascript" src="webFinalDemo.js" ></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+    
+        var answer_comment;
+    
+        $("#results").hide();
+    
+        $('input[type=radio][name=answer]').change(function() {
+            channel.notify({method: "i_am_ready", params: {'answer': 0, 'state': 1}});
+        });
+
+        $("form").submit(function(event) {
+            var fields = $("form").serializeArray();
+            $("#answer_comment").empty();
+            
+            jQuery.each(fields, function(i, field) {
+               if (field.name == 'answer'){
+                  if (field.value == 'a2'){
+                      answer_comment = 'верно';
+                      mark = 10;
+                  }else if(field.value == 'a1'){
+                      answer_comment = 'мы имели в виду другое';
+                      mark = 5;
+                  }else{
+                      answer_comment = 'неверно';
+                      mark = 0;
+                  }
+               }
+               $("#answer_comment").append(answer_comment);
+               $("#results").show();
+            });
+
+            channel.notify({method: "i_am_ready", params: {'answer': 1, 'state': 1}});
+            event.preventDefault();            
+            
+            return false;
+        });
+    });
+  </script>
+ </head>
+ <body>
+    <div id="results" style="color: blue;">Комментарий к ответу: <span id="answer_comment"></span></div>
+    <form id="form1">
+          <p><b>Как по вашему мнению расшифровывается аббревиатура &quot;ОС&quot;?</b></p>
+          <p>
+             <label><input id="form1_1" type="radio" name="answer" value="a1">Офицерский состав</label><Br>
+             <label><input id="form1_2" type="radio" name="answer" value="a2">Операционная система</label><Br>
+             <label><input id="form1_3" type="radio" name="answer" value="a3">Большой полосатый мух</label></p>
+          <p>
+            <input type="submit" id="superbutton">
+          </p>
+    </form>
+ </body>
+</html>
